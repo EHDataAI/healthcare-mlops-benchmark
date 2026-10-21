@@ -10,6 +10,23 @@
 
 The source `.ipynb` intentionally contains **no executed outputs**. The HTML is a static snapshot of the previously audited report, including visualizations; it is not an interactive application. GitHub's notebook renderer may sanitize embedded HTML/CSS, so its appearance can differ from the HTML preview.
 
+## Static report hosting (GitHub Pages)
+
+This repository includes a **proposed** static GitHub Pages publication under `docs/`. GitHub Pages is **not declared live** until its deployment has been enabled and visually verified by a guest visitor. The static page does not train models, score patients, or download the eight private frozen evidence files.
+
+- [Static landing page source](docs/index.html)
+- [Frozen visual report in the Pages source folder](docs/wdbc-report.html)
+- [Unchanged original HTML evidence](preview/WDBC_ERLV2_Research_Report_v0_1_1.html)
+- [Fail-closed report audit](scripts/verify_static_report.py)
+
+The Pages HTML copy is **byte-identical** to the previously published static visual report. The notebook remains intentionally source-only. Before enabling public hosting, review the Draft PR, confirm all checks and inspect the page layout. After merging, use **Settings > Pages > Build and deployment > Deploy from a branch > main > /docs > Save**. Only when GitHub confirms a successful deployment, the expected address is `https://ehdataai.github.io/healthcare-mlops-benchmark/`. This is a publicly available research report, **not** a clinical or medical-device service.
+
+## Landing v2: evidence-first reading
+
+The static landing under `docs/index.html` uses an editorial sequence: study scope, three methodological questions, two original frozen-figure previews, interpretation guide and explicit validity limits. Its layout adapts to desktop and mobile; fonts and assets are local, with no JavaScript, analytics or third-party tracking. The figure files under `docs/assets/` are extracted **byte-for-byte** from the five PNGs already embedded in the frozen report and validated against those source bytes by CI. The two figures are curated previews, **not** new simulations or results.
+
+A repository-wide `.gitattributes` policy keeps the scientific notebook and HTML in LF encoding during Windows checkout. Static-report QA now runs under both Linux and Windows and rejects changed frozen report bytes, unexpected asset references and active HTML.
+
 ## Scope and scientific design
 
 The **Wisconsin Diagnostic Breast Cancer (WDBC)** dataset contains 569 records and 30 numeric morphometric features derived from **fine-needle aspirate (FNA)** images. It is **not a mammography dataset**. Malignant is encoded as the positive class (`1`).
