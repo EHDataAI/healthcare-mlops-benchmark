@@ -1,0 +1,8 @@
+# The frozen research artifacts must retain canonical LF bytes on Windows and Linux.
+* text=auto
+*.ipynb text eol=lf
+*.html text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.png binary

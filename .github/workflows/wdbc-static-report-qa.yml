@@ -1,0 +1,28 @@
+name: WDBC static report QA
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  static-report:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Validate Python source and regression tests
+        run: |
+          python -B -m compileall -q scripts tests
+          python -B -m unittest discover -s tests -p "test_*.py" -v
+      - name: Verify frozen research and static HTML publication
+        run: python -B scripts/verify_static_report.py
